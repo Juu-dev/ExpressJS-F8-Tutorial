@@ -19,6 +19,14 @@ console.log(__dirname);
 // static file => access path: "__dirname/public"
 app.use(express.static(path.join(__dirname, "public")));
 
+// middleware handle data that were submitted from form by post method
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
+app.use(express.json());
+
 //HTTP logger
 app.use(morgan("combined"));
 
@@ -39,6 +47,11 @@ app.get("/news", (req, res) => {
 app.get("/search", (req, res) => {
   console.log(req.query.q);
   res.render("search");
+});
+
+app.post("/search", (req, res) => {
+  console.log(req.body);
+  res.send("");
 });
 
 app.listen(port, () =>
