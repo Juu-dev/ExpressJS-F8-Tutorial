@@ -1,25 +1,19 @@
-// I'm loading the file by ECMAScript module which does'n have __dirname or __filename
-import { fileURLToPath } from "url";
-import path, { dirname } from "path";
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
 // import express (framwork base on Node.js)
-import express from "express";
+const express = require("express");
 // import morgan (HTTP request logger middleware for Node.js )
-import morgan from "morgan";
-// import express-handlebars (template code)
-import { engine } from "express-handlebars";
-
-// import controllers
+const morgan = require("morgan");
+// import express-handlebars (template layout)
+const handlebars = require("express-handlebars");
+// import path
+const path = require("path");
 
 // import routes
-import route from "./routes/index_routes";
+const route = require("./routes/indexRoutes");
 
 const app = express();
 const port = 3000;
 
-console.log(__dirname);
+// console.log(__dirname);
 
 // static file => access path: "__dirname/public"
 app.use(express.static(path.join(__dirname, "public")));
@@ -35,13 +29,13 @@ app.use(express.json());
 //HTTP logger
 app.use(morgan("combined"));
 
-// Template Engine
-app.engine(".hbs", engine({ extname: ".hbs" }));
-app.set("view engine", ".hbs");
+// Template Engine (express-handlebars)
+app.engine("hbs", handlebars.engine({ extname: "hbs" }));
+app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "resources/views"));
 
 // Route init
-route(app);
+route.Route(app);
 
 app.listen(port, () =>
   console.log(`Example app listening at http://localhost:${port}`)
