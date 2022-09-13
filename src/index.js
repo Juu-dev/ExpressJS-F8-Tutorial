@@ -1,5 +1,5 @@
 // import express (framwork base on Node.js)
-const express = require("express");
+import express from "express";
 // import morgan (HTTP request logger middleware for Node.js )
 const morgan = require("morgan");
 // import express-handlebars (template layout)
@@ -9,6 +9,11 @@ const path = require("path");
 
 // import routes
 const route = require("./routes/indexRoutes");
+
+// import database
+import db from "./config/db";
+// connect to db
+db.connect();
 
 const app = express();
 const port = 3000;
