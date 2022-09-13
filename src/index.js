@@ -11,10 +11,13 @@ import morgan from "morgan";
 // import express-handlebars (template code)
 import { engine } from "express-handlebars";
 
-// import controllers
-
 // import routes
 import route from "./routes/index_routes";
+
+// import database
+import db from "./config/db";
+// connect to db
+db.connect();
 
 const app = express();
 const port = 3000;
